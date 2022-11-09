@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -38,11 +39,6 @@ const Coin = styled.li`
   }
 `;
 
-const Title = styled.h1`
-  font-size: 48px;
-  color: ${(props) => props.theme.accentColor};
-`;
-
 const Loader = styled.span`
   text-align: center;
   display: block;
@@ -52,6 +48,11 @@ const Img = styled.img`
   width: 35px;
   height: 35px;
   margin-right: 10px;
+`;
+
+const Title = styled.h1`
+  font-size: 48px;
+  color: ${(props) => props.theme.accentColor};
 `;
 
 interface ICoin {
@@ -79,14 +80,11 @@ const Coins = () => {
           {data?.slice(0, 100).map((coin) => (
             <Coin key={coin.id}>
               <Link
-                to={{
-                  pathname: `/${coin.id}`,
-                  state: { name: coin.name },
-                }}
+                to={{ pathname: `/${coin.id}`, state: { name: coin.name } }}
               >
                 <Img
                   src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
-                />{' '}
+                />
                 {coin.name} &rarr;
               </Link>
             </Coin>
