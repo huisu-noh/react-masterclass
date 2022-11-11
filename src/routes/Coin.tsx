@@ -30,6 +30,10 @@ const Loader = styled.span`
   display: block;
 `;
 
+const Arrow = styled.div`
+  font-size: 35px;
+`;
+
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
@@ -169,6 +173,9 @@ function Coin() {
           {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
         </title>
       </Helmet>
+      <Link to={`/`}>
+        <Arrow>&#171;</Arrow>
+      </Link>
       <Header>
         <Title>
           {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
