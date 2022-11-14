@@ -25,17 +25,25 @@ function Chart({ coinId }: ChartProps) {
       refetchInterval: 10000,
     }
   );
+
+  const exceptData = data ?? [];
+  const chartData = exceptData?.map((i) => {
+    return {
+      x: i.time_close,
+      y: [i.open, i.high, i.low, i.close],
+    };
+  });
+
   return (
     <div>
       {isLoading ? (
         'Loading chart...'
       ) : (
         <ApexChart
-          type='line'
+          type='candlestick'
           series={[
             {
-              name: 'Price',
-              data: data?.map((price) => Number(price.close)) as number[],
+              data: chartData,
             },
           ]}
           options={{
