@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Coin from './routes/Coin';
-import CoinList from './routes/CoinList';
+import Coins from './routes/Coins';
 
 function Router() {
   return (
@@ -10,7 +10,7 @@ function Router() {
           <Coin />
         </Route>
         <Route path={'/react-masterclass'}>
-          <CoinList />
+          <Coins />
         </Route>
       </Switch>
     </BrowserRouter>
