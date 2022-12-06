@@ -69,7 +69,6 @@ function Coins() {
     (async () => {
       const response = await fetch('https://api.coinpaprika.com/v1/coins');
       const json = await response.json();
-      console.log(json);
       setCoins(json.slice(0, 100));
       setLoading(false);
     })();
@@ -86,7 +85,12 @@ function Coins() {
         <CoinList>
           {coins.map((coin) => (
             <Coin key={coin.id}>
-              <Link to={`react-masterclass/${coin.id}`}>
+              <Link
+                to={{
+                  pathname: `react-masterclass/${coin.id}`,
+                  state: { name: coin.name },
+                }}
+              >
                 <Img
                   src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
                 />
