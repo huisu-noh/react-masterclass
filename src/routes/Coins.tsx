@@ -87,7 +87,7 @@ function Coins() {
             <Coin key={coin.id}>
               <Link
                 to={{
-                  pathname: `react-masterclass/${coin.id}`,
+                  pathname: `/react-masterclass/${coin.id}`,
                   state: { name: coin.name },
                 }}
               >
@@ -105,6 +105,3 @@ function Coins() {
 }
 
 export default Coins;
-function axios(arg0: string) {
-  throw new Error('Function not implemented.');
-}
