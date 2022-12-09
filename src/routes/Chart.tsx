@@ -20,24 +20,36 @@ interface IHistorical {
 function Chart({ coinId }: ChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(
     ['ohlcv', coinId],
-    () => fetchCoinHistory(coinId)
-    // {
-    //   refetchInterval: 10000,
-    // }
+    () => fetchCoinHistory(coinId),
+    {
+      refetchInterval: 10000,
+    }
   );
+
+  const exceptData = data ?? [];
+
+  const chartData = exceptData?.map((data) => {
+    return {
+      x: data.time_close,
+      y: [data.open, data.high, data.low, data.close],
+    };
+  });
+  console.log(chartData);
+
   return (
     <div>
       {isLoading ? (
         'Loading Chart ...'
       ) : (
         <ApexChart
-          type='line'
-          series={[
-            {
-              name: 'Price',
-              data: data?.map((price) => parseFloat(price.close)) ?? [],
-            },
-          ]}
+          type='candlestick'
+          series={
+            [
+              {
+                data: chartData,
+              },
+            ] as unknown as number[]
+          }
           options={{
             theme: {
               mode: 'light',
@@ -65,18 +77,6 @@ function Chart({ coinId }: ChartProps) {
             yaxis: {
               show: false,
             },
-            stroke: {
-              curve: 'smooth',
-              width: 4,
-            },
-            fill: {
-              type: 'gradient',
-              gradient: {
-                gradientToColors: ['blue'],
-                stops: [0, 100],
-              },
-            },
-            colors: ['red'],
             tooltip: {
               y: {
                 formatter: (value) => `$ ${value.toFixed(2)}`,

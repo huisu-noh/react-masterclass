@@ -81,10 +81,10 @@ interface PriceData {
 function Price({ coinId }: PriceProps) {
   const { isLoading, data } = useQuery<PriceData>(
     ['tickers', coinId],
-    () => fetchCoinTickers(coinId)
-    // {
-    //   refetchInterval: 5000,
-    // }
+    () => fetchCoinTickers(coinId),
+    {
+      refetchInterval: 5000,
+    }
   );
   return (
     <div>
