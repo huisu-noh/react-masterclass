@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "https://huisu-noh.github.io/react-masterclass/static/js/main.fe6c1271.js",
+    "main.js": "https://huisu-noh.github.io/react-masterclass/static/js/main.a4e22655.js",
     "index.html": "https://huisu-noh.github.io/react-masterclass/index.html",
-    "main.fe6c1271.js.map": "https://huisu-noh.github.io/react-masterclass/static/js/main.fe6c1271.js.map"
+    "main.a4e22655.js.map": "https://huisu-noh.github.io/react-masterclass/static/js/main.a4e22655.js.map"
   },
   "entrypoints": [
-    "static/js/main.fe6c1271.js"
+    "static/js/main.a4e22655.js"
   ]
 }
