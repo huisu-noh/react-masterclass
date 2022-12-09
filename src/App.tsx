@@ -1,9 +1,14 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import Router from './Router';
+import { ThemeProvider } from 'styled-components';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { lightTheme, darkTheme } from './theme';
+import { useState } from 'react';
+import { AiTwotoneStar } from 'react-icons/ai';
+import { BsFillBrightnessHighFill } from 'react-icons/bs';
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -55,8 +60,8 @@ table {
   box-sizing: border-box;
 }
 body {
-  font-weight: 300;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  font-family: 'Oswald', sans-serif;
   background-color:${(props) => props.theme.bgColor};
   color:${(props) => props.theme.textColor};
   line-height: 1.2;
@@ -67,12 +72,32 @@ a {
 }
 `;
 
+const Theme = styled.div`
+  width: 40px;
+  height: 40px;
+  background-color: ${(props) => props.theme.cardBgColor};
+  font-size: 25px;
+  border-radius: 50%;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding-top: 7px;
+  padding-left: 7px;
+`;
+
 function App() {
+  const [isDark, setIsDark] = useState(false);
+  const toggleDark = () => setIsDark((current) => !current);
+
   return (
     <>
-      <GlobalStyle />
-      <Router />
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <Theme onClick={toggleDark}>
+          {isDark ? <AiTwotoneStar /> : <BsFillBrightnessHighFill />}
+        </Theme>
+        <GlobalStyle />
+        <Router />
+        <ReactQueryDevtools initialIsOpen={true} />
+      </ThemeProvider>
     </>
   );
 }

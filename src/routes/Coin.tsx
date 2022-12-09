@@ -9,6 +9,7 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 import styled from 'styled-components';
+import { SlHome } from 'react-icons/sl';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
 import Chart from './Chart';
 import Price from './Price';
@@ -24,6 +25,7 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const Title = styled.h1`
@@ -39,7 +41,7 @@ const Loader = styled.span`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(240, 228, 228, 0.918);
+  background-color: ${(props) => props.theme.cardBgColor};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -71,7 +73,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(240, 228, 228, 0.918);
+  background-color: ${(props) => props.theme.cardBgColor};
 
   border-radius: 10px;
   color: ${(props) =>
@@ -80,6 +82,12 @@ const Tab = styled.span<{ isActive: boolean }>`
     padding: 7px 0px;
     display: block;
   }
+`;
+
+const Icon = styled.div`
+  font-size: 30px;
+  position: absolute;
+  right: 10px;
 `;
 
 interface RouterParams {
@@ -162,10 +170,10 @@ function Coin() {
 
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ['tickers', coinId],
-    () => fetchCoinTickers(coinId),
-    {
-      refetchInterval: 5000,
-    }
+    () => fetchCoinTickers(coinId)
+    // {
+    //   refetchInterval: 5000,
+    // }
   );
 
   const loading = infoLoading || tickersLoading;
@@ -181,6 +189,11 @@ function Coin() {
         <Title>
           {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
         </Title>
+        <Link to={'/react-masterclass'}>
+          <Icon>
+            <SlHome />
+          </Icon>
+        </Link>
       </Header>
       {loading ? (
         <Loader>Loading</Loader>
@@ -221,7 +234,7 @@ function Coin() {
           </Tabs>
           <Switch>
             <Route path={`${COIN_URL}/price`}>
-              <Price />
+              <Price coinId={coinId} />
             </Route>
             <Route path={`${COIN_URL}/chart`}>
               <Chart coinId={coinId} />
